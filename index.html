@@ -142,7 +142,7 @@
                             <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado">
                         </td>
                         <td>
-                            <textarea name="comments" id="comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
+                            <textarea name="comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
                         </td>
                         <td>
                             <input type="number" name="rating" id="rating" min="1" max="10" placeholder="Calificación X/10">
@@ -158,36 +158,36 @@
 
     <script>
         function shareContent() {
-        const contentType = document.getElementById('content-type').value;
-        const title = document.getElementById('title').value;
-        const poster = document.getElementById('poster').files[0];
-        const progress = document.getElementById('progress').value;
-        const psychologicalComments = document.getElementById('psychological-comments').value;
-        const rating = document.getElementById('rating').value;
+            const contentType = document.getElementById('content-type').value;
+            const title = document.getElementById('title').value;
+            const poster = document.getElementById('poster').files[0];
+            const progress = document.getElementById('progress').value;
+            const psychologicalComments = document.getElementById('psychological-comments').value;
+            const rating = document.getElementById('rating').value;
 
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const posterUrl = e.target.result; // URL de la imagen del póster
-            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nImagen: ${posterUrl}`;
-            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${posterUrl}`);
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
-            const threadsUrl = `threads://share?text=${tweetText}`;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const posterUrl = e.target.result; // URL de la imagen del póster
+                const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nImagen: ${posterUrl}`;
+                const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${posterUrl}`);
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
+                const threadsUrl = `https://www.threads.net/share?text=${tweetText}`;
 
-            const shareOptions = `
-                <div class="share-options">
-                    <p>Comparte en:</p>
-                    <a href="${twitterUrl}" target="_blank">Twitter</a> |
-                    <a href="${facebookUrl}" target="_blank">Facebook</a> |
-                    <a href="${threadsUrl}" target="_blank">Threads</a>
-                    <img src="${posterUrl}" alt="Poster de ${title}" style="width: 200px; display: block; margin: 10px auto;">
-                </div>
-            `;
-            document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
+                const shareOptions = `
+                    <div class="share-options">
+                        <p>Comparte en:</p>
+                        <a href="${twitterUrl}" target="_blank">Twitter</a> |
+                        <a href="${facebookUrl}" target="_blank">Facebook</a> |
+                        <a href="${threadsUrl}" target="_blank">Threads</a>
+                        <img src="${posterUrl}" alt="Poster de ${title}" style="width: 200px; display: block; margin: 10px auto;">
+                    </div>
+                `;
+                document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
+            }
+            reader.readAsDataURL(poster);
         }
-        reader.readAsDataURL(poster);
-    }
-</script>
+    </script>
 
 </body>
 </html>
