@@ -93,6 +93,13 @@
         .share-options a:hover {
             text-decoration: underline;
         }
+        footer {
+            background-color: #6200ea;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -169,7 +176,7 @@
             const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`);
             const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
             const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(summary)}`;
-            const threadsUrl = `https://www.threads.net/share?text=${tweetText}`;
+            const threadsUrl = `https://www.threads.net/share?text=${encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`)}`;
 
             const shareOptions = `
                 <div class="share-options">
@@ -182,6 +189,8 @@
             document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
         }
     </script>
-
+    <footer>
+        <p>This page was developed with the support of the Viva KoCo 2024 team.</p>
+    </footer>
 </body>
 </html>
