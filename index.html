@@ -163,11 +163,12 @@
             const progress = document.getElementById('progress').value;
             const psychologicalComments = document.getElementById('psychological-comments').value;
             const rating = document.getElementById('rating').value;
+            const url = window.location.href; // URL de la página actual
 
-            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10`;
-            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${document.URL}`);
+            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nEnlace: ${url}`;
+            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`);
             const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(summary)}`;
             const threadsUrl = `https://www.threads.net/share?text=${tweetText}`;
 
             const shareOptions = `
