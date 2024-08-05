@@ -168,7 +168,7 @@
             const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nEnlace: ${url}`;
             const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`);
             const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${encodeURIComponent(summary)}`;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(summary)}`;
             const threadsUrl = `https://www.threads.net/share?text=${tweetText}`;
 
             const shareOptions = `
