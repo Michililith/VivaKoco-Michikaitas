@@ -104,7 +104,7 @@
         <p>
             ¡Michikaitas para la Ansiedad! Es un espacio dedicado a comentar y analizar 
             aspectos psicológicos de diversos contenidos audiovisuales y literarios como películas, series, 
-            animés y webtoons. Nuestro objetivo es ofrecer una perspectiva terapéutica y educativa que pueda 
+            animés y webtoons. Nuestro objetivo es ofrecer una perspectiva sanadora y educativa que pueda 
             ayudar a sus espectadores a comprender mejor los temas emocionales representados en estos medios.
         </p>
     </div>
@@ -157,35 +157,39 @@
     </div>
 
     <script>
-        function shareContent() {
-            const contentType = document.getElementById('content-type').value;
-            const title = document.getElementById('title').value;
-            const poster = document.getElementById('poster').files[0];
-            const progress = document.getElementById('progress').value;
-            const psychologicalComments = document.getElementById('psychological-comments').value;
-            const rating = document.getElementById('rating').value;
+        <script>
+    function shareContent() {
+        const contentType = document.getElementById('content-type').value;
+        const title = document.getElementById('title').value;
+        const poster = document.getElementById('poster').files[0];
+        const progress = document.getElementById('progress').value;
+        const psychologicalComments = document.getElementById('psychological-comments').value;
+        const rating = document.getElementById('rating').value;
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const posterUrl = e.target.result;
-                const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10`;
-                const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10`);
-                const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
-                const instagramUrl = `https://www.instagram.com/`;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const posterUrl = e.target.result; // URL de la imagen del póster
+            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nImagen: ${posterUrl}`;
+            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${posterUrl}`);
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
+            const threadsUrl = `threads://share?text=${tweetText}`;
 
-                const shareOptions = `
-                    <div class="share-options">
-                        <p>Comparte en:</p>
-                        <a href="${twitterUrl}" target="_blank">Twitter</a> |
-                        <a href="${facebookUrl}" target="_blank">Facebook</a> |
-                        <a href="${instagramUrl}" target="_blank">Instagram</a>
-                        <img src="${posterUrl}" alt="Poster de ${title}" style="width: 200px; display: block; margin: 10px auto;">
-                    </div>
-                `;
-                document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
-            }
-            reader.readAsDataURL(poster);
+            const shareOptions = `
+                <div class="share-options">
+                    <p>Comparte en:</p>
+                    <a href="${twitterUrl}" target="_blank">Twitter</a> |
+                    <a href="${facebookUrl}" target="_blank">Facebook</a> |
+                    <a href="${threadsUrl}" target="_blank">Threads</a>
+                    <img src="${posterUrl}" alt="Poster de ${title}" style="width: 200px; display: block; margin: 10px auto;">
+                </div>
+            `;
+            document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
+        }
+        reader.readAsDataURL(poster);
+    }
+</script>
+
         }
     </script>
 </body>
