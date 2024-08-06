@@ -22,12 +22,9 @@
             margin: 0;
             font-size: 2.5em;
         }
-        .intro {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+        .intro, .review-form, .login-form, .register-form {
             background-color: #fff;
+            padding: 20px;
             margin: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -42,35 +39,28 @@
             max-width: 800px;
             text-align: center;
         }
-        .review-form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-        }
-        .review-form table {
+        .review-form table, .login-form table, .register-form table {
             width: 100%;
             border-collapse: collapse;
         }
-        .review-form th, .review-form td {
+        .review-form th, .review-form td, .login-form th, .login-form td, .register-form th, .register-form td {
             border: 1px solid #ccc;
             padding: 10px;
-            text-align: center; /* Centra el texto en todas las celdas */
-            vertical-align: middle; /* Alinea verticalmente el texto en el medio */
+            text-align: center;
+            vertical-align: middle;
         }
-        .review-form input[type="text"], .review-form input[type="number"], .review-form select, .review-form textarea {
-            width: 95%; /* Ajusta el ancho de los campos de entrada */
+        .review-form input[type="text"], .review-form input[type="number"], .review-form select, .review-form textarea, .login-form input, .register-form input {
+            width: 95%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            text-align: left; /* Alinea el texto a la izquierda dentro de los campos */
+            text-align: left;
         }
         .review-form input[type="file"] {
-            margin: 0 auto; /* Centra el campo de entrada de archivo */
+            margin: 0 auto;
         }
-        .review-form button {
+        .review-form button, .login-form button, .register-form button {
             background-color: #6200ea;
             color: white;
             border: none;
@@ -78,7 +68,7 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .review-form button:hover {
+        .review-form button:hover, .login-form button:hover, .register-form button:hover {
             background-color: #3700b3;
         }
         .share-options {
@@ -93,6 +83,13 @@
         .share-options a:hover {
             text-decoration: underline;
         }
+        footer {
+            background-color: #6200ea;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -102,14 +99,60 @@
     <div class="intro">
         <img src="2024 (Honorary Reporters).png" alt="Psicóloga Moderadora">
         <p>
-            ¡Bienvenidos a Michikaitas para la Ansiedad! Este es un espacio dedicado a comentar y analizar 
+            ¡Michikaitas para la Ansiedad! Es un espacio dedicado a comentar y analizar 
             aspectos psicológicos de diversos contenidos audiovisuales y literarios como películas, series, 
-            animés y webtoons. Nuestro objetivo es ofrecer una perspectiva terapéutica y educativa que pueda 
-            ayudar a los espectadores a comprender mejor los temas psicológicos representados en estos medios.
+            animés y webtoons. Nuestro objetivo es ofrecer una perspectiva sanadora y educativa que pueda 
+            ayudar a sus espectadores a comprender mejor los temas emocionales representados en estos medios.
         </p>
     </div>
+    
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Iniciar sesión</h2>
+        <form action="login.php" method="post">
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="username" required></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Iniciar sesión</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Register Form -->
+    <div class="register-form">
+        <h2>Registrarse</h2>
+        <form action="register.php" method="post">
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="username" required></td>
+                </tr>
+                <tr>
+                    <td>Correo electrónico:</td>
+                    <td><input type="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Registrarse</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Review Form -->
     <div class="review-form">
-        <form id="contentForm">
+        <form id="contentForm" action="save_review.php" method="post" enctype="multipart/form-data">
             <table>
                 <thead>
                     <tr>
@@ -117,7 +160,7 @@
                         <th>Título</th>
                         <th>Póster</th>
                         <th>Progreso</th>
-                        <th>Comentario Psicológico</th>
+                        <th>Comentario</th>
                         <th>Calificación</th>
                         <th>Compartir</th>
                     </tr>
@@ -125,7 +168,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select name="content-type" id="content-type">
+                            <select name="content_type" id="content-type">
                                 <option value="películas">Películas</option>
                                 <option value="series">Series</option>
                                 <option value="animes">Animés</option>
@@ -142,7 +185,7 @@
                             <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado">
                         </td>
                         <td>
-                            <textarea name="psychological-comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
+                            <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
                         </td>
                         <td>
                             <input type="number" name="rating" id="rating" min="1" max="10" placeholder="Calificación X/10">
@@ -153,6 +196,7 @@
                     </tr>
                 </tbody>
             </table>
+            <button type="submit">Guardar reseña</button>
         </form>
     </div>
 
@@ -160,33 +204,30 @@
         function shareContent() {
             const contentType = document.getElementById('content-type').value;
             const title = document.getElementById('title').value;
-            const poster = document.getElementById('poster').files[0];
             const progress = document.getElementById('progress').value;
             const psychologicalComments = document.getElementById('psychological-comments').value;
             const rating = document.getElementById('rating').value;
+            const url = window.location.href; // URL de la página actual
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const posterUrl = e.target.result;
-                const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10`;
-                const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10`);
-                const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${document.URL}&quote=${encodeURIComponent(summary)}`;
-                const instagramUrl = `https://www.instagram.com/`;
+            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nEnlace: ${url}`;
+            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`);
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(summary)}`;
+            const threadsUrl = `https://www.threads.net/share?text=${encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`)}`;
 
-                const shareOptions = `
-                    <div class="share-options">
-                        <p>Comparte en:</p>
-                        <a href="${twitterUrl}" target="_blank">Twitter</a> |
-                        <a href="${facebookUrl}" target="_blank">Facebook</a> |
-                        <a href="${instagramUrl}" target="_blank">Instagram</a>
-                        <img src="${posterUrl}" alt="Poster de ${title}" style="width: 200px; display: block; margin: 10px auto;">
-                    </div>
-                `;
-                document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
-            }
-            reader.readAsDataURL(poster);
+            const shareOptions = `
+                <div class="share-options">
+                    <p>Comparte en:</p>
+                    <a href="${twitterUrl}" target="_blank">Twitter</a> |
+                    <a href="${facebookUrl}" target="_blank">Facebook</a> |
+                    <a href="${threadsUrl}" target="_blank">Threads</a>
+                </div>
+            `;
+            document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
         }
     </script>
+    <footer>
+        <p>This page was developed with the support of the Viva KoCo 2024 team.</p>
+    </footer>
 </body>
 </html>
