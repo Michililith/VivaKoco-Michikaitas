@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>hola</h1>
+    <h2>Lilith</h2>
+    <h3>Psicóloga kdramaniaca</h3>
+    <h4>aprendiendo a echar código </h4>
+    <h5>primer nivel para crear una website <br> que permita reseñar contenido audiovisual <br> desde los aspectos Psicológicos</h5>
+    <h6>cómo estás?</h6> <hr><b><hr></b>
+    <p>este es sin negrita con las p, <br> br para romper el párrafo y <br> hr para crear una línea </p>
+    <b>para poner negrita <br> se usan las b de bold </b> <em>para letra cursiva se usa em </em>
+    <i>para cursiva tambien se puede usar i </i> 
+</body>
+</html> <ol><li>para hacer una lista se usa li después de ol </li>
+<li> De nuevo se usa li en la siguiente línea</li>
+cuando iniciar la lista se usa ol para alinear <i>el siguiente item y <br> al terminar se usa ol de nuevo entre los ol nos da números <br> mientras entre solo li nos da viñeta</ol>
+    <li>solita nos da viñeta</li></i> también se puede usar <b>ul</b> <ul>para una lista de viñetas <li>viñetas</li></ul>
+    <ul><li>terminé de usar cursiva al cerrar la <b>i</b> </li></ul>
+   <ol><li>
+    Para grabar uso <b>ctrl s </b> en cada file </li> </ol>

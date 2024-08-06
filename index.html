@@ -1,3 +1,16 @@
+<?php
+session_start();
+require 'db_connection.php';
+
+function fetch_reviews($conn) {
+    $query = "SELECT * FROM reviews ORDER BY id DESC";
+    $result = $conn->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+$reviews = fetch_reviews($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
