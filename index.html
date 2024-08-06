@@ -110,6 +110,252 @@ $reviews = fetch_reviews($conn);
         <h1>Michikaitas para la Ansiedad</h1>
     </header>
     <div class="intro">
+               <img src="descarga.jpeg" alt="Psicóloga Moderadora">
+        <p>
+            ¡Michikaitas para la Ansiedad! Es un espacio dedicado a comentar y analizar 
+            aspectos psicológicos de diversos contenidos audiovisuales y literarios como películas, series, 
+            animés y webtoons. Nuestro objetivo es ofrecer una perspectiva sanadora y educativa que pueda 
+            ayudar a sus espectadores a comprender mejor los temas emocionales representados en estos medios.
+        </p>
+    </div>
+    
+    <!-- Login Form -->
+    <div class="login-form">
+        <h2>Iniciar sesión</h2>
+        <form action="login.php" method="post">
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="username" required></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Iniciar sesión</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Register Form -->
+    <div class="register-form">
+        <h2>Registrarse</h2>
+        <form action="register.php" method="post">
+            <table>
+                <tr>
+                    <td>Usuario:</td>
+                    <td><input type="text" name="username" required></td>
+                </tr>
+                <tr>
+                    <td>Correo electrónico:</td>
+                    <td><input type="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td>Contraseña:</td>
+                    <td><input type="password" name="password" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Registrarse</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Review Form -->
+    <div class="review-form">
+        <form id="contentForm" action="save_review.php" method="post" enctype="multipart/form-data">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de contenido</th>
+                        <th>Título</th>
+                        <th>Póster</th>
+                        <th>Progreso</th>
+                        <th>Comentario</th>
+                        <th>Calificación</th>
+                        <th>Compartir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select name="content_type" id="content-type">
+                                <option value="películas">Películas</option>
+                                <option value="series">Series</option>
+                                <option value="animes">Animés</option>
+                                <option value="webtoon">Webtoon</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" name="title" id="title" placeholder="Título del contenido">
+                        </td>
+                        <td>
+                            <input type="file" name="poster" id="poster" accept="image/*">
+                        </td>
+                        <td>
+                            <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado">
+                        </td>
+                        <td>
+                            <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
+                        </td>
+                        <td>
+                            <input type="number" name="rating" id="rating" min="1" max="10" placeholder="Calificación X/10">
+                        </td>
+                        <td>
+                            <button type="button" onclick="shareContent()">Compartir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button type="submit">Guardar reseña</button>
+        </form>
+    </div>
+
+    <script>
+        function shareContent() {
+            const contentType = document.getElementById('content-type').value;
+            const title = document.getElementById('title').value;
+            const progress = document.getElementById('progress').value;
+            const psychologicalComments = document.getElementById('psychological-comments').value;
+            const rating = document.getElementById('rating').value;
+            const url = window.location.href; // URL de la página actual
+
+            const summary = `Título: ${title}\nTipo de contenido: ${contentType}\nProgreso: ${progress}\nComentario Psicológico: ${psychologicalComments}\nCalificación: ${rating}/10\nEnlace: ${url}`;
+            const tweetText = encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`);
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(summary)}`;
+            const threadsUrl = `https://www.threads.net/share?text=${encodeURIComponent(`Reseña de ${title}: ${progress}\n${psychologicalComments}\nCalificación: ${rating}/10\n${url}`)}`;
+
+            const shareOptions = `
+                <div class="share-options">
+                    <p>Comparte en:</p>
+                    <a href="${twitterUrl}" target="_blank">Twitter</a> |
+                    <a href="${facebookUrl}" target="_blank">Facebook</a> |
+                    <a href="${threadsUrl}" target="_blank">Threads</a>
+                </div>
+            `;
+            document.querySelector('.review-form').insertAdjacentHTML('beforeend', shareOptions);
+        }
+    </script>
+    <footer>
+        <p>This page was developed with the support of the Viva KoCo 2024 team.</p>
+    </footer>
+</body>
+</html>
+<?php
+session_start();
+require 'db_connection.php';
+
+function fetch_reviews($conn) {
+    $query = "SELECT * FROM reviews ORDER BY id DESC";
+    $result = $conn->query($query);
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+$reviews = fetch_reviews($conn);
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michikaitas para la Ansiedad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .intro, .review-form, .login-form, .register-form {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .intro img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+        .intro p {
+            max-width: 800px;
+            text-align: center;
+        }
+        .review-form table, .login-form table, .register-form table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .review-form th, .review-form td, .login-form th, .login-form td, .register-form th, .register-form td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .review-form input[type="text"], .review-form input[type="number"], .review-form select, .review-form textarea, .login-form input, .register-form input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .review-form input[type="file"] {
+            margin: 0 auto;
+        }
+        .review-form button, .login-form button, .register-form button {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .review-form button:hover, .login-form button:hover, .register-form button:hover {
+            background-color: #3700b3;
+        }
+        .share-options {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .share-options a {
+            margin: 0 10px;
+            color: #6200ea;
+            text-decoration: none;
+        }
+        .share-options a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #6200ea;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Michikaitas para la Ansiedad</h1>
+    </header>
+    <div class="intro">
         <img src="2024 (Honorary Reporters).png" alt="Psicóloga Moderadora">
         <p>
             ¡Michikaitas para la Ansiedad! Es un espacio dedicado a comentar y analizar 
