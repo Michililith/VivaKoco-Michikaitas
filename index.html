@@ -13,7 +13,7 @@
             color: #333;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
         }
         header {
             background-color: #a665e7;
@@ -108,8 +108,8 @@
             text-align: center;
             padding: 10px 0;
             width: 100%;
-            position: fixed;
-            bottom: 0;
+            position: relative;
+            margin-top: auto; /* Mueve el pie de página al final de la página */
         }
     </style>
 </head>
