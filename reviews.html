@@ -119,6 +119,7 @@
             const psychologicalComments = document.getElementById('psychological-comments').value;
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
+            const reviewUrl = window.location.href; // Asume que la reseña se publica en la misma página
 
             // Aquí podrías agregar código para enviar los datos al servidor
             // Para simplicidad, vamos a simular la adición de una reseña
@@ -142,7 +143,7 @@
             document.getElementById('reviewForm').reset();
 
             // Actualizar el enlace para compartir en Twitter
-            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}%20Check%20out%20this%20review%20on%20MichiLilith!`;
+            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}%20Check%20out%20this%20review%20on%20MichiLilith!%20${encodeURIComponent(reviewUrl)}`;
         }
 
         function loadDisqus(identifier) {
