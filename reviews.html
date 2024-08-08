@@ -24,7 +24,7 @@
             margin-top: 0;
             color: #a665e7;
         }
-        .review-form input[type="text"], .review-form input[type="number"], .review-form textarea {
+        .review-form input[type="text"], .review-form input[type="number"], .review-form textarea, .review-form select {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -95,6 +95,14 @@
     <div class="review-form">
         <h2>Crear Reseña</h2>
         <form id="reviewForm">
+            <select name="type" id="type" required>
+                <option value="" disabled selected>Tipo de contenido</option>
+                <option value="película">Película</option>
+                <option value="serie">Serie</option>
+                <option value="anime">Anime</option>
+                <option value="webtoon">Webtoon</option>
+                <option value="libro">Libro</option>
+            </select>
             <input type="text" name="title" id="title" placeholder="Título del contenido" required>
             <input type="file" name="poster" id="poster" accept="image/*">
             <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado" required>
@@ -114,6 +122,7 @@
 
     <script>
         function submitReview() {
+            const type = document.getElementById('type').value;
             const title = document.getElementById('title').value;
             const progress = document.getElementById('progress').value;
             const psychologicalComments = document.getElementById('psychological-comments').value;
@@ -128,7 +137,7 @@
             const reviewItem = document.createElement('div');
             reviewItem.classList.add('review-item');
             reviewItem.innerHTML = `
-                <h3>${title}</h3>
+                <h3>${title} (${type})</h3>
                 <img src="${URL.createObjectURL(poster)}" alt="Poster">
                 <p><strong>Progreso:</strong> ${progress}</p>
                 <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
@@ -144,7 +153,7 @@
             document.getElementById('reviewForm').reset();
 
             // Actualizar el enlace para compartir en Twitter con la información principal
-            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=Revisa%20esta%20reseña%20en%20MichiLilith:%20${encodeURIComponent(title)}%20Progreso:%20${encodeURIComponent(progress)}%20Comentarios:%20${encodeURIComponent(psychologicalComments)}%20Calificación:%20${encodeURIComponent(rating)}/10.%20¡Comentala%20en%20${encodeURIComponent(mainPageUrl)}!%20${encodeURIComponent(reviewUrl)}`;
+            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=Revisa%20esta%20reseña%20en%20MichiLilith:%20${encodeURIComponent(title)}%20(${encodeURIComponent(type)})%20Progreso:%20${encodeURIComponent(progress)}%20Comentarios:%20${encodeURIComponent(psychologicalComments)}%20Calificación:%20${encodeURIComponent(rating)}/10.%20¡Comentala%20en%20${encodeURIComponent(mainPageUrl)}!%20${encodeURIComponent(reviewUrl)}`;
         }
 
         function loadDisqus(identifier) {
