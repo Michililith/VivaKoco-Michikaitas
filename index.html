@@ -4,100 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Michikaitas para la Ansiedad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&family=Shrikhand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Quicksand', sans-serif; /* Fuente más amigable */
+            font-family: 'Quicksand', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #000;
-            color: #d3d3d3;
+            color: #f3ddeb;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         header {
-            background-color: #6a0dad;
+            background-color: #a665e7;
             color: #f3ddeb;
-            width: 100%;
             text-align: center;
             padding: 20px;
+            letter-spacing: 4px; /* Más espaciado entre letras */
+            font-family: 'Shrikhand', cursive;
         }
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            font-family: 'Shrikhand', cursive; /* Fuente del encabezado */
+            font-size: 3em;
         }
         .cover {
             width: 100%;
-            text-align: center;
-            margin: 20px 0;
-        }
-        .cover img {
-            width: 80%;
             max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .cover img, .cover svg {
+            width: 100%;
             border-radius: 10px;
         }
         .intro {
-            background-color: #333;
+            background-color: #222;
             padding: 20px;
-            margin: 20px;
+            margin: 20px auto;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
+            box-shadow: 0 0 10px rgba(201, 51, 144, 0.2);
             text-align: center;
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
         .intro p {
-            max-width: 800px;
+            margin: 0;
+        }
+        .auth-buttons {
             text-align: center;
-            margin: 0 auto;
+            margin: 20px;
+        }
+        .auth-buttons button {
+            background-color: #a665e7;
+            color: #f3ddeb;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin: 10px;
+        }
+        .auth-buttons button:hover {
+            background-color: #8c4ebf;
         }
         .form-container {
             background-color: #333;
             padding: 20px;
-            margin: 20px;
+            margin: 20px auto;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
-            width: 100%;
+            box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            display: none; /* Oculto por defecto */
         }
         .form-container h2 {
             margin-top: 0;
             color: #a665e7;
         }
-        .form-container table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .form-container th, .form-container td {
-            border: none;
-            padding: 10px;
-            text-align: left;
-            vertical-align: middle;
-        }
         .form-container input[type="text"], .form-container input[type="number"], .form-container input[type="password"], .form-container input[type="email"], .form-container select, .form-container textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #a665e7;
             border-radius: 5px;
-            background-color: #444;
-            color: #fff;
+            background-color: #222;
+            color: #f3ddeb;
         }
-        .form-container input[type="number"] {
-            -moz-appearance: textfield;
-        }
-        .form-container input[type="number"]::-webkit-outer-spin-button,
-        .form-container input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .form-container button {
-            background-color: #6a0dad;
+        .form-container button[type="submit"] {
+            background-color: #a665e7;
             color: #f3ddeb;
             border: none;
             padding: 10px 20px;
@@ -105,57 +98,32 @@
             cursor: pointer;
             width: 100%;
         }
-        .form-container button:hover {
-            background-color: #531095;
+        .form-container button[type="submit"]:hover {
+            background-color: #8c4ebf;
         }
-        .share-options {
-            margin-top: 20px;
+        .profile-button, .review-button {
             text-align: center;
+            margin: 20px;
         }
-        .share-options a {
-            margin: 0 10px;
-            color: #a665e7;
-            text-decoration: none;
+        .profile-button button, .review-button button {
+            background-color: #a665e7;
+            color: #f3ddeb;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
         }
-        .share-options a:hover {
-            text-decoration: underline;
+        .profile-button button:hover, .review-button button:hover {
+            background-color: #8c4ebf;
         }
         footer {
-            background-color: #6a0dad;
+            background-color: #a665e7;
             color: #f3ddeb;
             text-align: center;
             padding: 15px 0;
             width: 100%;
             margin-top: auto;
-        }
-        .profile-container {
-            background-color: #333;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(106, 13, 173, 0.5);
-            width: 100%;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .profile-container h2 {
-            margin-top: 0;
-            color: #a665e7;
-        }
-        .profile-container ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .profile-container li {
-            background-color: #444;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .profile-container li span {
-            display: block;
-            margin-top: 5px;
         }
     </style>
 </head>
@@ -165,171 +133,106 @@
     </header>
     <div class="cover">
         <img src="Your Title Here.png" alt="Portada del sitio">
-        <div class="intro">
-            <p>
-                ¡Michikaitas para la Ansiedad! Comunidad en línea para reseñar y analizar aspectos emocionales del mundo Hallyu, incluyendo películas, series, animés y webtoons. El objetivo es proporcionar un espacio para compartir, reflexionar y sanar entre mutis, explorando las emociones presentes en estas obras. 
-            </p>
-        </div>
-        <img src="video.svg" alt="Video del sitio">
     </div>
-    
-    <!-- Login Form -->
-    <div class="form-container login-form">
+    <div class="intro">
+        <p>¡Michikaitas para la Ansiedad! Comunidad en línea para reseñar y analizar aspectos emocionales del mundo Hallyu, incluyendo películas, series, animés y webtoons. El objetivo es proporcionar un espacio para compartir, reflexionar y sanar entre mutis, explorando las emociones presentes en estas obras.</p>
+    </div>
+    <div class="cover">
+        <img src="video.svg" alt="Video Introductorio">
+    </div>
+
+    <div class="auth-buttons">
+        <button onclick="toggleForm('login')">Iniciar sesión</button>
+        <button onclick="toggleForm('register')">Registrarse</button>
+    </div>
+
+    <div class="form-container login-form" id="loginForm">
         <h2>Iniciar sesión</h2>
         <form action="login.php" method="post">
-            <table>
-                <tr>
-                    <td>Usuario:</td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="username" required></td>
-                </tr>
-                <tr>
-                    <td>Contraseña:</td>
-                </tr>
-                <tr>
-                    <td><input type="password" name="password" required></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Iniciar sesión</button></td>
-                </tr>
-            </table>
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar sesión</button>
         </form>
     </div>
 
-    <!-- Register Form -->
-    <div class="form-container register-form">
+    <div class="form-container register-form" id="registerForm">
         <h2>Registrarse</h2>
         <form action="register.php" method="post">
-            <table>
-                <tr>
-                    <td>Usuario:</td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="username" required></td>
-                </tr>
-                <tr>
-                    <td>Correo electrónico:</td>
-                </tr>
-                <tr>
-                    <td><input type="email" name="email" required></td>
-                </tr>
-                <tr>
-                    <td>Contraseña:</td>
-                </tr>
-                <tr>
-                    <td><input type="password" name="password" required></td>
-                </tr>
-                <tr>
-                    <td><button type="submit">Registrarse</button></td>
-                </tr>
-            </table>
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Registrarse</button>
         </form>
     </div>
 
-    <!-- Review Form -->
-    <div class="form-container review-form">
+    <div class="profile-button">
+        <button onclick="location.href='profile.html'">Mi Perfil</button>
+    </div>
+
+    <div class="review-button">
+        <button onclick="toggleForm('review')">Crear Reseña</button>
+    </div>
+
+    <div class="form-container review-form" id="reviewForm">
         <h2>Crear Reseña</h2>
         <form id="contentForm" action="save_review.php" method="post" enctype="multipart/form-data">
-            <table>
-                <tr>
-                    <td>Tipo de contenido:</td>
-                </tr>
-                <tr>
-                    <td>
-                        <select name="content_type" id="content-type">
-                            <option value="películas">Películas</option>
-                            <option value="series">Series</option>
-                            <option value="animes">Animés</option>
-                            <option value="webtoon">Webtoon</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Título:</td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="title" id="title" placeholder="Título del contenido"></td>
-                </tr>
-                <tr>
-                    <td>Póster:</td>
-                </tr>
-                <tr>
-                    <td><input type="file" name="poster" id="poster" accept="image/*"></td>
-                </tr>
-                <tr>
-                    <td>Progreso:</td>
-                </tr>
-                <tr>
-                    <td><input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado"></td>
-                </tr>
-                <tr>
-                    <td>Comentario:</td>
-                </tr>
-                <tr>
-                    <td><textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea></td>
-                </tr>
-                <tr>
-                    <td>Calificación:</td>
-                </tr>
-                <tr>
-                    <td><input type="number" step="0.1" name="rating" id="rating" min="1" max="10" placeholder="Calificación X/10"></td>
-                </tr>
-                <tr>
-                    <td><button type="button" onclick="shareContent()">Compartir</button></td>
-                </tr>
-            </table>
+            <select name="content_type" id="content-type">
+                <option value="películas">Películas</option>
+                <option value="series">Series</option>
+                <option value="animes">Animés</option>
+                <option value="webtoon">Webtoon</option>
+            </select>
+            <input type="text" name="title" id="title" placeholder="Título del contenido" required>
+            <input type="file" name="poster" id="poster" accept="image/*">
+            <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado" required>
+            <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
+            <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
+            <button type="button" onclick="shareContent()">Compartir</button>
             <button type="submit">Guardar reseña</button>
         </form>
     </div>
 
-    <!-- User Profile Section -->
-    <div class="profile-container">
-        <h2>Perfil de Usuario</h2>
-        <ul id="user-reviews">
-            <!-- Aquí se listarán las reseñas del usuario -->
-            <li>
-                Reseña 1
-                <span>Progreso: 5/10</span>
-                <span>Calificación: 8.5/10</span>
-            </li>
-            <li>
-                Reseña 2
-                <span>Progreso: Completado</span>
-                <span>Calificación: 7.8/10</span>
-            </li>
-            <li>
-                Reseña 3
-                <span>Progreso: Dropeado</span>
-                <span>Calificación: 4.3/10</span>
-            </li>
-        </ul>
-    </div>
-
     <script>
+        function toggleForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const reviewForm = document.getElementById('reviewForm');
+
+            if (formType === 'login') {
+                loginForm.style.display = loginForm.style.display === 'none' || loginForm.style.display === '' ? 'block' : 'none';
+                registerForm.style.display = 'none';
+                reviewForm.style.display = 'none';
+            } else if (formType === 'register') {
+                registerForm.style.display = registerForm.style.display === 'none' || registerForm.style.display === '' ? 'block' : 'none';
+                loginForm.style.display = 'none';
+                reviewForm.style.display = 'none';
+            } else if (formType === 'review') {
+                reviewForm.style.display = reviewForm.style.display === 'none' || reviewForm.style.display === '' ? 'block' : 'none';
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'none';
+            }
+        }
+
         function shareContent() {
             const contentType = document.getElementById('content-type').value;
             const title = document.getElementById('title').value;
             const progress = document.getElementById('progress').value;
             const rating = document.getElementById('rating').value;
-            const url = window.location.href; // URL de la página actual
+            const url = window.location.href;
 
-            let action = '';
+            let action;
             if (progress.toLowerCase().includes('completado')) {
-                action = 'completé';
+                action = 'Completé';
             } else if (progress.toLowerCase().includes('dropeado')) {
-                action = 'dropee';
+                action = 'Dropeé';
             } else {
-                action = 'estoy viendo';
+                action = 'Estoy viendo';
             }
 
-            const summary = `¡${action} ${title}! Calificación: ${rating}/10. ¿Cuál es la tuya? ${url}`;
+            const summary = `${action} ${title}, Calificación: ${rating}/10. ¿Cuál es la tuya? ${url}`;
             
-            const shareUrlTwitter = `https://twitter.com/intent/tweet?text=${encodeURIComponent(summary)}`;
-            const shareUrlFacebook = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(summary)}`;
-            
-            window.open(shareUrlTwitter, '_blank');
-            window.open(shareUrlFacebook, '_blank');
+            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(summary)}`;
+            window.open(shareUrl, '_blank');
         }
     </script>
 
