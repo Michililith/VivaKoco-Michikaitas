@@ -50,18 +50,31 @@
         }
         .review-item {
             background-color: #333;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(251, 152, 239, 0.2);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
         }
         .review-item h3 {
             margin: 0;
+            color: #a665e7;
         }
         .review-item img {
-            width: 100px;
+            width: 150px;
             height: auto;
             border-radius: 5px;
+            float: left;
+            margin-right: 20px;
+        }
+        .review-item .details {
+            display: flex;
+            flex-direction: column;
+        }
+        .review-item .details p {
+            margin: 5px 0;
+        }
+        .review-item .details p strong {
+            color: #a665e7;
         }
         .disqus-comments {
             margin-top: 20px;
@@ -137,12 +150,14 @@
             const reviewItem = document.createElement('div');
             reviewItem.classList.add('review-item');
             reviewItem.innerHTML = `
-                <h3>${title} (${type})</h3>
                 <img src="${URL.createObjectURL(poster)}" alt="Poster">
-                <p><strong>Progreso:</strong> ${progress}</p>
-                <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
-                <p><strong>Calificación:</strong> ${rating}/10</p>
-                <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
+                <div class="details">
+                    <h3>${title} (${type})</h3>
+                    <p><strong>Progreso:</strong> ${progress}</p>
+                    <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
+                    <p><strong>Calificación:</strong> ${rating}/10</p>
+                    <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
+                </div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
 
