@@ -120,6 +120,7 @@
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
             const reviewUrl = window.location.href; // Asume que la reseña se publica en la misma página
+            const mainPageUrl = 'https://example.com'; // Cambia esto por la URL de la página principal
 
             // Aquí podrías agregar código para enviar los datos al servidor
             // Para simplicidad, vamos a simular la adición de una reseña
@@ -143,7 +144,7 @@
             document.getElementById('reviewForm').reset();
 
             // Actualizar el enlace para compartir en Twitter con la información principal
-            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}%20Progreso:%20${encodeURIComponent(progress)}%20Comentarios:%20${encodeURIComponent(psychologicalComments)}%20Calificación:%20${encodeURIComponent(rating)}/10%20Check%20out%20this%20review%20on%20MichiLilith!%20${encodeURIComponent(reviewUrl)}`;
+            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=Revisa%20esta%20reseña%20en%20MichiLilith:%20${encodeURIComponent(title)}%20Progreso:%20${encodeURIComponent(progress)}%20Comentarios:%20${encodeURIComponent(psychologicalComments)}%20Calificación:%20${encodeURIComponent(rating)}/10.%20¡Comentala%20en%20${encodeURIComponent(mainPageUrl)}!%20${encodeURIComponent(reviewUrl)}`;
         }
 
         function loadDisqus(identifier) {
