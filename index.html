@@ -21,14 +21,14 @@
             color: #f3ddeb;
             text-align: center;
             padding: 20px;
-            letter-spacing: 4px; /* Más espaciado entre letras */
-            font-family: 'Shrikhand', cursive;
+            letter-spacing: 4px;
+            font-family: 'Quicksand', sans-serif;
         }
         header h1 {
             margin: 0;
             font-size: 3em;
         }
-        .cover {
+        .cover, .section-preview {
             width: 100%;
             max-width: 800px;
             margin: 20px auto;
@@ -38,7 +38,7 @@
             width: 100%;
             border-radius: 10px;
         }
-        .intro {
+        .intro, .section-preview {
             background-color: #222;
             padding: 20px;
             margin: 20px auto;
@@ -47,14 +47,14 @@
             text-align: center;
             max-width: 800px;
         }
-        .intro p {
+        .intro p, .section-preview p {
             margin: 0;
         }
-        .auth-buttons {
+        .btn-container {
             text-align: center;
             margin: 20px;
         }
-        .auth-buttons button {
+        .btn-container button {
             background-color: #a665e7;
             color: #f3ddeb;
             border: none;
@@ -62,59 +62,11 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 1.2em;
-            margin: 10px;
-        }
-        .auth-buttons button:hover {
-            background-color: #8c4ebf;
-        }
-        .form-container {
-            background-color: #333;
-            padding: 20px;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
-            max-width: 800px;
-            display: none; /* Oculto por defecto */
-        }
-        .form-container h2 {
-            margin-top: 0;
-            color: #a665e7;
-        }
-        .form-container input[type="text"], .form-container input[type="number"], .form-container input[type="password"], .form-container input[type="email"], .form-container select, .form-container textarea {
+            margin: 10px 0;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #a665e7;
-            border-radius: 5px;
-            background-color: #222;
-            color: #f3ddeb;
+            max-width: 300px;
         }
-        .form-container button[type="submit"] {
-            background-color: #a665e7;
-            color: #f3ddeb;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-        }
-        .form-container button[type="submit"]:hover {
-            background-color: #8c4ebf;
-        }
-        .review-button {
-            text-align: center;
-            margin: 20px;
-        }
-        .review-button button {
-            background-color: #a665e7;
-            color: #f3ddeb;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.2em;
-        }
-        .review-button button:hover {
+        .btn-container button:hover {
             background-color: #8c4ebf;
         }
         footer {
@@ -125,112 +77,76 @@
             width: 100%;
             margin-top: auto;
         }
+        .section-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .section-content img {
+            max-width: 100%;
+            height: auto;
+            max-height: 200px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+        .section-text {
+            flex: 1;
+            padding: 10px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Michikaitas para la Ansiedad</h1>
     </header>
+
     <div class="cover">
         <img src="Your Title Here.png" alt="Portada del sitio">
     </div>
+
     <div class="intro">
         <p>¡Michikaitas para la Ansiedad! Comunidad en línea para reseñar y analizar aspectos emocionales del mundo Hallyu, incluyendo películas, series, animés y webtoons. El objetivo es proporcionar un espacio para compartir, reflexionar y sanar entre mutis, explorando las emociones presentes en estas obras.</p>
     </div>
+
     <div class="cover">
         <img src="video.svg" alt="Video Introductorio">
     </div>
 
-    <div class="auth-buttons">
-        <button onclick="toggleForm('login')">Iniciar sesión</button>
-        <button onclick="toggleForm('register')">Registrarse</button>
+    <!-- Botón para Ver Reseñas -->
+    <div class="btn-container">
+        <button onclick="location.href='reviews.html'">Escribe y Comparte Reseñas</button>
     </div>
 
-    <div class="form-container login-form" id="loginForm">
-        <h2>Iniciar sesión</h2>
-        <form action="login.php" method="post">
-            <input type="text" name="username" placeholder="Usuario" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Iniciar sesión</button>
-        </form>
+    <!-- Nueva sección: Artículos para Honorary Reporters -->
+    <div class="section-preview">
+        <div class="section-content">
+            <img src="2024 (Honorary Reporters).png" alt="Encabezado Honorary Reporters">
+            <div class="section-text">
+                <h2>Artículos para Honorary Reporters</h2>
+                <p>Explora los artículos escritos por Liliana Forero Montoya en la plataforma Honorary Reporters, donde comparte su perspectiva sobre la cultura coreana.</p>
+                <div class="btn-container">
+                    <button onclick="window.open('https://honoraryreporters.korea.net/board/main.do?pageidx=1&tpln=4&articlecate=1&searchtp=all&searchtxt=Liliana+Forero+Montoya', '_blank')">Leer Artículos</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="form-container register-form" id="registerForm">
-        <h2>Registrarse</h2>
-        <form action="register.php" method="post">
-            <input type="text" name="username" placeholder="Usuario" required>
-            <input type="email" name="email" placeholder="Correo electrónico" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
-            <button type="submit">Registrarse</button>
-        </form>
+    <!-- Nueva sección: Sección de vídeos para la K-influencer Academy -->
+    <div class="section-preview">
+        <div class="section-content">
+            <img src="logo2.png" alt="Encabezado K-influencer Academy">
+            <div class="section-text">
+                <h2>Sección de vídeos para la K-influencer Academy</h2>
+                <p>Mira la serie de vídeos creados por Liliana Forero Montoya para la K-influencer Academy, donde explora diversas facetas de la cultura coreana.</p>
+                <div class="btn-container">
+                    <button onclick="window.open('https://youtube.com/playlist?list=PLQBRU7FzUPyfB7suCHu9Ko3fnY9_uOoSX&si=fR5eOkp7zletU1Mr', '_blank')">Ver Vídeos</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="review-button">
-        <button onclick="location.href='reviews.html'">Ver Reseñas</button>
-    </div>
-
-    <div class="form-container review-form" id="reviewForm">
-        <h2>Crear Reseña</h2>
-        <form id="contentForm" action="save_review.php" method="post" enctype="multipart/form-data">
-            <select name="content_type" id="content-type">
-                <option value="películas">Películas</option>
-                <option value="series">Series</option>
-                <option value="animes">Animés</option>
-                <option value="webtoon">Webtoon</option>
-            </select>
-            <input type="text" name="title" id="title" placeholder="Título del contenido" required>
-            <input type="file" name="poster" id="poster" accept="image/*">
-            <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado" required>
-            <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
-            <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
-            <button type="button" onclick="shareContent()">Compartir</button>
-            <button type="submit">Guardar reseña</button>
-        </form>
-    </div>
-
-    <script>
-        function toggleForm(formType) {
-            const loginForm = document.getElementById('loginForm');
-            const registerForm = document.getElementById('registerForm');
-            const reviewForm = document.getElementById('reviewForm');
-
-            if (formType === 'login') {
-                loginForm.style.display = loginForm.style.display === 'none' || loginForm.style.display === '' ? 'block' : 'none';
-                registerForm.style.display = 'none';
-                reviewForm.style.display = 'none';
-            } else if (formType === 'register') {
-                registerForm.style.display = registerForm.style.display === 'none' || registerForm.style.display === '' ? 'block' : 'none';
-                loginForm.style.display = 'none';
-                reviewForm.style.display = 'none';
-            } else if (formType === 'review') {
-                reviewForm.style.display = reviewForm.style.display === 'none' || reviewForm.style.display === '' ? 'block' : 'none';
-                loginForm.style.display = 'none';
-                registerForm.style.display = 'none';
-            }
-        }
-
-        function shareContent() {
-            const contentType = document.getElementById('content-type').value;
-            const title = document.getElementById('title').value;
-            const progress = document.getElementById('progress').value;
-            const rating = document.getElementById('rating').value;
-            const url = window.location.href;
-
-            let action;
-            if (progress.toLowerCase().includes('completado')) {
-                action = 'Completé';
-            } else if (progress.toLowerCase().includes('dropeado')) {
-                action = 'Dropeé';
-            } else {
-                action = 'Estoy viendo';
-            }
-
-            const summary = `${action} ${title}, Calificación: ${rating}/10. ¿Cuál es la tuya? ${url}`;
-            
-            const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(summary)}`;
-            window.open(shareUrl, '_blank');
-        }
-    </script>
     <footer>
         <p>&copy; 2024 Michikaitas para la Ansiedad. Página desarrollada con el apoyo del equipo Viva KoCo del gobierno de Corea. Todos los derechos reservados.</p>
     </footer>
