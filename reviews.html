@@ -12,15 +12,16 @@
             margin: 0;
             padding: 20px;
         }
-        .review-form {
+        .review-form, .reviews-section, .social-media-section {
             background-color: #333;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
             max-width: 800px;
             margin: 0 auto;
+            margin-bottom: 20px;
         }
-        .review-form h2 {
+        .review-form h2, .reviews-section h2, .social-media-section h2 {
             margin-top: 0;
             color: #a665e7;
         }
@@ -66,34 +67,38 @@
         .review-item p {
             margin: 5px 0;
         }
-        .share-button {
+        .share-button, .social-buttons button {
             display: inline-block;
-            margin: 10px 0;
+            margin: 10px 5px;
             padding: 10px;
-            background-color: #1da1f2; /* Twitter color */
-            color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            color: #fff;
+            background-color: #1da1f2; /* Twitter color */
         }
-        .share-button:hover {
+        .share-button:hover, .social-buttons button:hover {
             background-color: #0d95e8;
         }
-        .social-media {
-            text-align: center;
-            margin: 20px 0;
+        .share-button {
+            background-color: #1da1f2;
         }
-        .social-media p {
-            margin: 0 0 10px;
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
         }
-        .social-media a {
-            margin: 0 10px;
+        .social-buttons a {
             text-decoration: none;
         }
-        .social-media img {
+        .social-buttons button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .social-buttons img {
             width: 24px;
             height: auto;
-            vertical-align: middle;
         }
         .footer {
             text-align: center;
@@ -103,6 +108,7 @@
     </style>
 </head>
 <body>
+    <!-- Formulario para crear y compartir reseñas -->
     <div class="review-form">
         <h2>Crear Reseña</h2>
         <form id="reviewForm">
@@ -123,17 +129,45 @@
         </form>
     </div>
 
-    <div class="reviews-list" id="reviewsList">
-        <!-- Las reseñas se mostrarán aquí -->
+    <!-- Sección de reseñas -->
+    <div class="reviews-section">
+        <h2>Reseñas</h2>
+        <div class="reviews-list" id="reviewsList">
+            <!-- Las reseñas se mostrarán aquí -->
+        </div>
     </div>
 
-    <div class="social-media">
+    <!-- Sección de comentar con Disqus -->
+    <div class="reviews-section">
+        <h2>Comentarios</h2>
+        <div id="disqus_thread"></div>
+        <script>
+            var disqus_config = function () {
+                this.page.url = window.location.href;  // Reemplaza con la URL de tu página
+                this.page.identifier = document.title; // Identificador único para Disqus
+            };
+
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://https-viva-koco-michikaitas-vercel-app-comentarios.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    <!-- Sección de redes sociales -->
+    <div class="social-media-section">
+        <h2>Redes Sociales</h2>
         <p>Puedes ver más contenido y seguirnos en las redes sociales Michililith:</p>
-        <a href="https://www.youtube.com/c/MichiLilith" target="_blank"><img src="youtube-logo.png" alt="YouTube"></a>
-        <a href="https://www.instagram.com/michililith" target="_blank"><img src="instagram-logo.png" alt="Instagram"></a>
-        <a href="https://x.com/michililith" target="_blank"><img src="x-logo.png" alt="X"></a>
-        <a href="https://threads.net/michililith" target="_blank"><img src="threads-logo.png" alt="Threads"></a>
-        <a href="https://www.facebook.com/MichiLilithFP" target="_blank"><img src="facebook-logo.png" alt="Facebook"></a>
+        <div class="social-buttons">
+            <a href="https://www.youtube.com/c/MichiLilith" target="_blank"><button>YouTube</button></a>
+            <a href="https://www.instagram.com/michililith" target="_blank"><button>Instagram</button></a>
+            <a href="https://x.com/michililith" target="_blank"><button>X</button></a>
+            <a href="https://threads.net/michililith" target="_blank"><button>Threads</button></a>
+            <a href="https://www.facebook.com/MichiLilithFP" target="_blank"><button>Facebook</button></a>
+        </div>
     </div>
 
     <div class="footer">
@@ -161,7 +195,7 @@
                 <p><strong>Progreso:</strong> ${progress}</p>
                 <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
                 <p><strong>Calificación:</strong> ${rating}/10</p>
-                <button class="share-button" onclick="shareOnTwitter('${title}')">Compartir en Twitter</button>
+                <button class="share-button" onclick="shareOnTwitter('${title}')">Comparte con tus amigos</button>
                 <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
@@ -188,9 +222,9 @@
         }
 
         function shareOnTwitter(title) {
-            const url = window.location.href;
-            const tweetText = `¡Mira mi reseña sobre ${title} en Michikaitas para la Ansiedad! ${url} #Michikaitas`;
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`, '_blank');
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad!`);
+            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
         }
     </script>
 </body>
