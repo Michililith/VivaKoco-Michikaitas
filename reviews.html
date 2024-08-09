@@ -16,17 +16,25 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
         }
-        .header button {
+        .header h1 {
+            margin: 0;
+            color: #a665e7;
+        }
+        .header .back-button {
             background-color: #a665e7;
             color: #f3ddeb;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 18px;
         }
-        .header button:hover {
+        .header .back-button:hover {
             background-color: #8c4ebf;
         }
         .review-form, .reviews-section, .social-media-section {
@@ -35,8 +43,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
             max-width: 800px;
-            margin: 0 auto;
-            margin-bottom: 20px;
+            margin: 20px auto;
         }
         .review-form h2, .reviews-section h2, .social-media-section h2 {
             margin-top: 0;
@@ -52,10 +59,13 @@
             color: #f3ddeb;
         }
         .review-form input[type="file"] {
-            border: none;
             padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #a665e7;
+            border-radius: 5px;
             background-color: #222;
             color: #f3ddeb;
+            font-size: 16px;
         }
         .review-form button {
             background-color: #a665e7;
@@ -139,12 +149,17 @@
             margin-top: 20px;
             color: #a665e7;
         }
+        .file-label {
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <!-- Encabezado con botón para volver a la página principal -->
     <div class="header">
-        <button onclick="window.location.href='index.html'">Volver a la página principal</button>
+        <button class="back-button" onclick="window.location.href='https://viva-koco-michikaitas.vercel.app/index.html'">← Volver</button>
+        <h1>Reseñas</h1>
     </div>
 
     <!-- Formulario para crear y compartir reseñas -->
@@ -152,7 +167,8 @@
         <h2>Crear Reseña</h2>
         <form id="reviewForm">
             <input type="text" name="title" id="title" placeholder="Título del contenido" required>
-            <input type="file" name="poster" id="poster" accept="image/*">
+            <label for="poster" class="file-label">Sube una captura o poster del contenido a reseñar aquí:</label>
+            <input type="file" name="poster" id="poster" accept="image/*" required>
             <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado" required>
             <select name="content_type" id="content_type" required>
                 <option value="">Selecciona el tipo de contenido</option>
@@ -162,7 +178,7 @@
                 <option value="Webtoons">Webtoons</option>
                 <option value="Libros">Libros</option>
             </select>
-            <textarea name="emotional_comments" id="emotional-comments" rows="4" placeholder="Comentarios sobre el contenido"></textarea>
+            <textarea name="comments" id="comments" rows="4" placeholder="Comentarios"></textarea>
             <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
             <button type="button" onclick="submitReview()">Guardar reseña</button>
         </form>
@@ -217,36 +233,20 @@
     <script>
         function submitReview() {
             const title = document.getElementById('title').value;
-            const progress = document.getElementById('progress').value;
-            const emotionalComments = document.getElementById('emotional-comments').value;
             const rating = document.getElementById('rating').value;
-            const poster = document.getElementById('poster').files[0];
+            const progress = document.getElementById('progress').value;
+            const comments = document.getElementById('comments').value;
             const contentType = document.getElementById('content_type').value;
+            const poster = document.getElementById('poster').files[0];
 
-            // Aquí podrías agregar código para enviar los datos al servidor
-            // Para simplicidad, vamos a simular la adición de una reseña
-
-            const reviewItem = document.createElement('div');
-            reviewItem.className = 'review-item';
-            reviewItem.innerHTML = `
-                <h3>${title}</h3>
-                <img src="${URL.createObjectURL(poster)}" alt="${title}">
-                <p><strong>Progreso:</strong> ${progress}</p>
-                <p><strong>Tipo de contenido:</strong> ${contentType}</p>
-                <p><strong>Aspectos emocionales:</strong> ${emotionalComments}</p>
-                <p><strong>Calificación:</strong> ${rating}/10</p>
-            `;
-            document.getElementById('reviewsList').appendChild(reviewItem);
+            // Aquí podrías enviar los datos a un servidor o manejarlos como desees
+            alert('Reseña guardada con éxito');
         }
 
-        function prefillTweet(title, rating, emotionalComments) {
-            const tweetText = `Visto "${title}" mi calificación es "${rating}" ${emotionalComments}. Comparte tus reseñas a través de Michikaitas para la Ansiedad: https://viva-koco-michikaitas.vercel.app/reviews.html`;
-            return encodeURIComponent(tweetText);
-        }
-
-        function generateTweetUrl(title, rating, emotionalComments) {
-            const baseUrl = 'https://twitter.com/intent/tweet?text=';
-            return baseUrl + prefillTweet(title, rating, emotionalComments);
+        function shareOnTwitter(title, rating, comments) {
+            const tweetText = `Visto "${title}" mi calificación es "${rating}" ${comments} Comparte tus reseñas a través de Michikaitas para la Ansiedad: https://viva-koco-michikaitas.vercel.app/reviews.html`;
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+            window.open(tweetUrl, '_blank');
         }
     </script>
 </body>
