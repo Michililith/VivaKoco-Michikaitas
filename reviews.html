@@ -209,7 +209,7 @@
                 <p><strong>Progreso:</strong> ${progress}</p>
                 <p><strong>Comentarios:</strong> ${comments}</p>
                 <p><strong>Calificación:</strong> ${rating}/10</p>
-                <button class="share-button" onclick="shareOnTwitter('${title}', '${url}')">Comparte con tus mutis</button>
+                <button class="share-button" onclick="shareOnTwitter('${title}', '${url}')">Comparte en Twitter</button>
                 <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
@@ -236,8 +236,8 @@
         }
 
         function shareOnTwitter(title, url) {
-            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad! Lee la reseña completa aquí: ${url}`);
-            window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
+            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad! Comparte tus reseñas a través de Michikaitas para la Ansiedad. Lee la reseña completa aquí: ${url}`);
+            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
         }
     </script>
 </body>
