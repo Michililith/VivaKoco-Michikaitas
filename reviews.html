@@ -53,54 +53,52 @@
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(251, 152, 239, 0.2);
+            box-shadow: 0 0 5px rgba(251, 152, 239, 0.2);
         }
         .review-item h3 {
             margin: 0;
-            color: #a665e7;
         }
         .review-item img {
-            width: 150px;
+            width: 100px;
             height: auto;
             border-radius: 5px;
-            float: left;
-            margin-right: 20px;
         }
-        .review-item .details {
-            display: flex;
-            flex-direction: column;
-        }
-        .review-item .details p {
+        .review-item p {
             margin: 5px 0;
         }
-        .review-item .details p strong {
-            color: #a665e7;
-        }
-        .disqus-comments {
-            margin-top: 20px;
-        }
-        .share-buttons {
-            margin-top: 20px;
-        }
-        .share-buttons a {
-            background-color: #1DA1F2;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
+        .share-button {
             display: inline-block;
-            font-weight: bold;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #1da1f2; /* Twitter color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .share-button:hover {
+            background-color: #0d95e8;
+        }
+        .social-media {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .social-media p {
+            margin: 0 0 10px;
+        }
+        .social-media a {
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .social-media img {
+            width: 24px;
+            height: auto;
+            vertical-align: middle;
         }
         .footer {
-            margin-top: 40px;
-            padding: 20px;
-            background-color: #333;
-            color: #f3ddeb;
             text-align: center;
-        }
-        .footer a {
+            margin-top: 20px;
             color: #a665e7;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -108,17 +106,17 @@
     <div class="review-form">
         <h2>Crear Reseña</h2>
         <form id="reviewForm">
-            <select name="type" id="type" required>
-                <option value="" disabled selected>Tipo de contenido</option>
-                <option value="película">Película</option>
-                <option value="serie">Serie</option>
-                <option value="anime">Anime</option>
-                <option value="webtoon">Webtoon</option>
-                <option value="libro">Libro</option>
-            </select>
             <input type="text" name="title" id="title" placeholder="Título del contenido" required>
             <input type="file" name="poster" id="poster" accept="image/*">
             <input type="text" name="progress" id="progress" placeholder="Ej. 3/10, Completado, Dropeado" required>
+            <select name="content_type" id="content_type" required>
+                <option value="">Selecciona el tipo de contenido</option>
+                <option value="Películas">Películas</option>
+                <option value="Series">Series</option>
+                <option value="Animes">Animes</option>
+                <option value="Webtoons">Webtoons</option>
+                <option value="Libros">Libros</option>
+            </select>
             <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
             <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
             <button type="button" onclick="submitReview()">Guardar reseña</button>
@@ -129,20 +127,27 @@
         <!-- Las reseñas se mostrarán aquí -->
     </div>
 
-    <div class="share-buttons">
-        <a id="twitterShare" href="#" target="_blank">Compartir en Twitter</a>
+    <div class="social-media">
+        <p>Puedes ver más contenido y seguirnos en las redes sociales Michililith:</p>
+        <a href="https://www.youtube.com/c/MichiLilith" target="_blank"><img src="youtube-logo.png" alt="YouTube"></a>
+        <a href="https://www.instagram.com/michililith" target="_blank"><img src="instagram-logo.png" alt="Instagram"></a>
+        <a href="https://x.com/michililith" target="_blank"><img src="x-logo.png" alt="X"></a>
+        <a href="https://threads.net/michililith" target="_blank"><img src="threads-logo.png" alt="Threads"></a>
+        <a href="https://www.facebook.com/MichiLilithFP" target="_blank"><img src="facebook-logo.png" alt="Facebook"></a>
+    </div>
+
+    <div class="footer">
+        2024 Michikaitas para la Ansiedad. Página desarrollada con el apoyo del equipo Viva KoCo del gobierno de Corea. Todos los derechos reservados.
     </div>
 
     <script>
         function submitReview() {
-            const type = document.getElementById('type').value;
             const title = document.getElementById('title').value;
             const progress = document.getElementById('progress').value;
             const psychologicalComments = document.getElementById('psychological-comments').value;
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
-            const reviewUrl = window.location.href; // Asume que la reseña se publica en la misma página
-            const mainPageUrl = 'https://example.com'; // Cambia esto por la URL de la página principal
+            const contentType = document.getElementById('content_type').value;
 
             // Aquí podrías agregar código para enviar los datos al servidor
             // Para simplicidad, vamos a simular la adición de una reseña
@@ -150,14 +155,14 @@
             const reviewItem = document.createElement('div');
             reviewItem.classList.add('review-item');
             reviewItem.innerHTML = `
+                <h3>${title}</h3>
                 <img src="${URL.createObjectURL(poster)}" alt="Poster">
-                <div class="details">
-                    <h3>${title} (${type})</h3>
-                    <p><strong>Progreso:</strong> ${progress}</p>
-                    <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
-                    <p><strong>Calificación:</strong> ${rating}/10</p>
-                    <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
-                </div>
+                <p><strong>Tipo de contenido:</strong> ${contentType}</p>
+                <p><strong>Progreso:</strong> ${progress}</p>
+                <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
+                <p><strong>Calificación:</strong> ${rating}/10</p>
+                <button class="share-button" onclick="shareOnTwitter('${title}')">Compartir en Twitter</button>
+                <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
 
@@ -166,43 +171,27 @@
 
             // Limpiar el formulario
             document.getElementById('reviewForm').reset();
-
-            // Actualizar el enlace para compartir en Twitter con la información principal
-            document.getElementById('twitterShare').href = `https://twitter.com/intent/tweet?text=Revisa%20esta%20reseña%20en%20MichiLilith:%20${encodeURIComponent(title)}%20(${encodeURIComponent(type)})%20Progreso:%20${encodeURIComponent(progress)}%20Comentarios:%20${encodeURIComponent(psychologicalComments)}%20Calificación:%20${encodeURIComponent(rating)}/10.%20¡Comentala%20en%20${encodeURIComponent(mainPageUrl)}!%20${encodeURIComponent(reviewUrl)}`;
         }
 
         function loadDisqus(identifier) {
-            const disqus_config = function () {
+            var disqus_config = function () {
                 this.page.url = window.location.href;  // Reemplaza con la URL de tu página
                 this.page.identifier = identifier; // Identificador único para Disqus
             };
 
-            const script = document.createElement('script');
-            script.src = 'https://YOUR_DISQUS_SHORTNAME_HERE.disqus.com/embed.js';
-            script.setAttribute('data-timestamp', +new Date());
-            (document.head || document.body).appendChild(script);
+            (function() { // DON'T EDIT BELOW THIS LINE
+                var d = document, s = d.createElement('script');
+                s.src = 'https://https-viva-koco-michikaitas-vercel-app-comentarios.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        }
+
+        function shareOnTwitter(title) {
+            const url = window.location.href;
+            const tweetText = `¡Mira mi reseña sobre ${title} en Michikaitas para la Ansiedad! ${url}`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`, '_blank');
         }
     </script>
-
-    <!-- Código de Disqus global -->
-    <div id="disqus_thread"></div>
-    <script>
-        var disqus_config = function () {
-            this.page.url = window.location.href; // Reemplaza con la URL de tu página
-            this.page.identifier = document.title; // Identificador único para Disqus
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://YOUR_DISQUS_SHORTNAME_HERE.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-
-    <footer class="footer">
-        <p>Gracias a <a href="https://viva.koco.co">Viva Koco</a> por su apoyo.</p>
-    </footer>
 </body>
 </html>
