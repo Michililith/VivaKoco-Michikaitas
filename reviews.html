@@ -195,6 +195,7 @@
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
             const contentType = document.getElementById('content_type').value;
+            const url = encodeURIComponent(window.location.href);
 
             // Aquí podrías agregar código para enviar los datos al servidor
             // Para simplicidad, vamos a simular la adición de una reseña
@@ -208,7 +209,7 @@
                 <p><strong>Progreso:</strong> ${progress}</p>
                 <p><strong>Comentarios:</strong> ${comments}</p>
                 <p><strong>Calificación:</strong> ${rating}/10</p>
-                <button class="share-button" onclick="shareOnTwitter('${title}')">Comparte con tus mutis</button>
+                <button class="share-button" onclick="shareOnTwitter('${title}', '${url}')">Comparte con tus mutis</button>
                 <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
@@ -234,9 +235,8 @@
             })();
         }
 
-        function shareOnTwitter(title) {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad!`);
+        function shareOnTwitter(title, url) {
+            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad! Lee la reseña completa aquí: ${url}`);
             window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank');
         }
     </script>
