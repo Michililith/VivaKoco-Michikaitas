@@ -153,6 +153,12 @@
             display: block;
             margin-bottom: 5px;
         }
+        .review-preview {
+            background-color: #444;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -182,6 +188,18 @@
             <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
             <button type="button" onclick="submitReview()">Guardar reseña</button>
         </form>
+    </div>
+
+    <!-- Vista previa de la reseña -->
+    <div class="review-preview" id="reviewPreview" style="display: none;">
+        <h2>Vista Previa de la Reseña</h2>
+        <p id="previewTitle"></p>
+        <p id="previewRating"></p>
+        <p id="previewProgress"></p>
+        <p id="previewContentType"></p>
+        <p id="previewComments"></p>
+        <img id="previewPoster" src="" alt="Imagen de la reseña" style="width: 100px; height: auto;"/>
+        <button class="share-button" onclick="shareOnTwitter()">Compartir en Twitter</button>
     </div>
 
     <!-- Sección de reseñas -->
@@ -215,19 +233,20 @@
     <!-- Sección de redes sociales -->
     <div class="social-media-section">
         <h2>Redes Sociales</h2>
-        <img src="foto intro.jpg" alt="Encabezado Redes Sociales">
-        <p>Puedes ver más contenido y seguirnos en las redes sociales Michililith:</p>
+        <img src="foto intro.jpg" alt="Imagen de portada" />
         <div class="social-buttons">
-            <a href="https://www.youtube.com/@MichiLilith" target="_blank"><button>YouTube</button></a>
-            <a href="https://www.instagram.com/michililith" target="_blank"><button>Instagram</button></a>
-            <a href="https://x.com/michililith" target="_blank"><button>X</button></a>
-            <a href="https://threads.net/michililith" target="_blank"><button>Threads</button></a>
-            <a href="https://www.facebook.com/MichiLilithFP" target="_blank"><button>Facebook</button></a>
+            <a href="https://twitter.com/MichiLilith" target="_blank"><button><img src="twitter-logo.png" alt="Twitter"></button></a>
+            <a href="https://www.instagram.com/MichiLilith" target="_blank"><button><img src="instagram-logo.png" alt="Instagram"></button></a>
+            <a href="https://www.youtube.com/MichiLilith" target="_blank"><button><img src="youtube-logo.png" alt="YouTube"></button></a>
+            <a href="https://www.threads.net/MichiLilith" target="_blank"><button><img src="threads-logo.png" alt="Threads"></button></a>
+            <a href="https://www.facebook.com/MichiLilithFP" target="_blank"><button><img src="facebook-logo.png" alt="Facebook"></button></a>
         </div>
+        <p>Puedes ver más contenido y seguirnos en las redes sociales MichiLilith.</p>
     </div>
 
+    <!-- Pie de página -->
     <div class="footer">
-        2024 Michikaitas para la Ansiedad. Página desarrollada con el apoyo del equipo Viva KoCo del gobierno de Corea. Todos los derechos reservados.
+        <p>&copy; 2024 Michikaitas para la Ansiedad. Página desarrollada con el apoyo del equipo Viva KoCo del gobierno de Corea. Todos los derechos reservados.</p>
     </div>
 
     <script>
@@ -239,11 +258,28 @@
             const contentType = document.getElementById('content_type').value;
             const poster = document.getElementById('poster').files[0];
 
-            // Aquí podrías enviar los datos a un servidor o manejarlos como desees
-            alert('Reseña guardada con éxito');
+            // Mostrar vista previa
+            document.getElementById('previewTitle').textContent = `Título: ${title}`;
+            document.getElementById('previewRating').textContent = `Calificación: ${rating}`;
+            document.getElementById('previewProgress').textContent = `Progreso: ${progress}`;
+            document.getElementById('previewContentType').textContent = `Tipo de contenido: ${contentType}`;
+            document.getElementById('previewComments').textContent = `Comentarios: ${comments}`;
+
+            if (poster) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewPoster').src = e.target.result;
+                };
+                reader.readAsDataURL(poster);
+            }
+
+            document.getElementById('reviewPreview').style.display = 'block';
         }
 
-        function shareOnTwitter(title, rating, comments) {
+        function shareOnTwitter() {
+            const title = document.getElementById('title').value;
+            const rating = document.getElementById('rating').value;
+            const comments = document.getElementById('comments').value;
             const tweetText = `Visto "${title}" mi calificación es "${rating}" ${comments} Comparte tus reseñas a través de Michikaitas para la Ansiedad: https://viva-koco-michikaitas.vercel.app/reviews.html`;
             const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
             window.open(tweetUrl, '_blank');
