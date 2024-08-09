@@ -12,6 +12,23 @@
             margin: 0;
             padding: 20px;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header button {
+            background-color: #a665e7;
+            color: #f3ddeb;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .header button:hover {
+            background-color: #8c4ebf;
+        }
         .review-form, .reviews-section, .social-media-section {
             background-color: #333;
             padding: 20px;
@@ -31,6 +48,12 @@
             margin-bottom: 10px;
             border: 1px solid #a665e7;
             border-radius: 5px;
+            background-color: #222;
+            color: #f3ddeb;
+        }
+        .review-form input[type="file"] {
+            border: none;
+            padding: 10px;
             background-color: #222;
             color: #f3ddeb;
         }
@@ -119,6 +142,11 @@
     </style>
 </head>
 <body>
+    <!-- Encabezado con botón para volver a la página principal -->
+    <div class="header">
+        <button onclick="window.location.href='index.html'">Volver a la página principal</button>
+    </div>
+
     <!-- Formulario para crear y compartir reseñas -->
     <div class="review-form">
         <h2>Crear Reseña</h2>
@@ -134,7 +162,7 @@
                 <option value="Webtoons">Webtoons</option>
                 <option value="Libros">Libros</option>
             </select>
-            <textarea name="comments" id="comments" rows="4" placeholder="Comentarios sobre aspectos emocionales del contenido audiovisual"></textarea>
+            <textarea name="emotional_comments" id="emotional-comments" rows="4" placeholder="Comentarios sobre el contenido"></textarea>
             <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
             <button type="button" onclick="submitReview()">Guardar reseña</button>
         </form>
@@ -172,7 +200,6 @@
     <div class="social-media-section">
         <h2>Redes Sociales</h2>
         <img src="foto intro.jpg" alt="Encabezado Redes Sociales">
-       
         <p>Puedes ver más contenido y seguirnos en las redes sociales Michililith:</p>
         <div class="social-buttons">
             <a href="https://www.youtube.com/@MichiLilith" target="_blank"><button>YouTube</button></a>
@@ -191,53 +218,35 @@
         function submitReview() {
             const title = document.getElementById('title').value;
             const progress = document.getElementById('progress').value;
-            const comments = document.getElementById('comments').value;
+            const emotionalComments = document.getElementById('emotional-comments').value;
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
             const contentType = document.getElementById('content_type').value;
-            const url = encodeURIComponent(window.location.href);
 
             // Aquí podrías agregar código para enviar los datos al servidor
             // Para simplicidad, vamos a simular la adición de una reseña
 
             const reviewItem = document.createElement('div');
-            reviewItem.classList.add('review-item');
+            reviewItem.className = 'review-item';
             reviewItem.innerHTML = `
                 <h3>${title}</h3>
-                <img src="${URL.createObjectURL(poster)}" alt="Poster">
-                <p><strong>Tipo de contenido:</strong> ${contentType}</p>
+                <img src="${URL.createObjectURL(poster)}" alt="${title}">
                 <p><strong>Progreso:</strong> ${progress}</p>
-                <p><strong>Comentarios:</strong> ${comments}</p>
+                <p><strong>Tipo de contenido:</strong> ${contentType}</p>
+                <p><strong>Aspectos emocionales:</strong> ${emotionalComments}</p>
                 <p><strong>Calificación:</strong> ${rating}/10</p>
-                <button class="share-button" onclick="shareOnTwitter('${title}', '${url}')">Comparte en Twitter</button>
-                <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
             `;
             document.getElementById('reviewsList').appendChild(reviewItem);
-
-            // Cargar Disqus para la nueva reseña
-            loadDisqus(title.replace(/\s+/g, '_'));
-
-            // Limpiar el formulario
-            document.getElementById('reviewForm').reset();
         }
 
-        function loadDisqus(identifier) {
-            var disqus_config = function () {
-                this.page.url = window.location.href;  // Reemplaza con la URL de tu página
-                this.page.identifier = identifier; // Identificador único para Disqus
-            };
-
-            (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://https-viva-koco-michikaitas-vercel-app-comentarios.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
+        function prefillTweet(title, rating, emotionalComments) {
+            const tweetText = `Visto "${title}" mi calificación es "${rating}" ${emotionalComments}. Comparte tus reseñas a través de Michikaitas para la Ansiedad: https://viva-koco-michikaitas.vercel.app/reviews.html`;
+            return encodeURIComponent(tweetText);
         }
 
-        function shareOnTwitter(title, url) {
-            const text = encodeURIComponent(`¡Mira mi reseña sobre "${title}" en Michikaitas para la Ansiedad! Comparte tus reseñas a través de Michikaitas para la Ansiedad. Lee la reseña completa aquí: ${url}`);
-            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
+        function generateTweetUrl(title, rating, emotionalComments) {
+            const baseUrl = 'https://twitter.com/intent/tweet?text=';
+            return baseUrl + prefillTweet(title, rating, emotionalComments);
         }
     </script>
 </body>
