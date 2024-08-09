@@ -134,7 +134,7 @@
                 <option value="Webtoons">Webtoons</option>
                 <option value="Libros">Libros</option>
             </select>
-            <textarea name="psychological_comments" id="psychological-comments" rows="4" placeholder="Aspectos Psicológicos"></textarea>
+            <textarea name="comments" id="comments" rows="4" placeholder="Comentarios sobre aspectos emocionales del contenido audiovisual"></textarea>
             <input type="number" name="rating" id="rating" min="1" max="10" step="0.1" placeholder="Calificación X/10" required>
             <button type="button" onclick="submitReview()">Guardar reseña</button>
         </form>
@@ -169,12 +169,13 @@
     </div>
 
     <!-- Sección de redes sociales -->
-    <div class="social-media-section">  <h2>Redes Sociales</h2>
+    <div class="social-media-section">
+        <h2>Redes Sociales</h2>
         <img src="foto intro.jpg" alt="Encabezado Redes Sociales">
        
         <p>Puedes ver más contenido y seguirnos en las redes sociales Michililith:</p>
         <div class="social-buttons">
-            <a href="https://www.youtube.com/MichiLilith" target="_blank"><button>YouTube</button></a>
+            <a href="https://www.youtube.com/@MichiLilith" target="_blank"><button>YouTube</button></a>
             <a href="https://www.instagram.com/michililith" target="_blank"><button>Instagram</button></a>
             <a href="https://x.com/michililith" target="_blank"><button>X</button></a>
             <a href="https://threads.net/michililith" target="_blank"><button>Threads</button></a>
@@ -190,7 +191,7 @@
         function submitReview() {
             const title = document.getElementById('title').value;
             const progress = document.getElementById('progress').value;
-            const psychologicalComments = document.getElementById('psychological-comments').value;
+            const comments = document.getElementById('comments').value;
             const rating = document.getElementById('rating').value;
             const poster = document.getElementById('poster').files[0];
             const contentType = document.getElementById('content_type').value;
@@ -205,7 +206,7 @@
                 <img src="${URL.createObjectURL(poster)}" alt="Poster">
                 <p><strong>Tipo de contenido:</strong> ${contentType}</p>
                 <p><strong>Progreso:</strong> ${progress}</p>
-                <p><strong>Comentarios Psicológicos:</strong> ${psychologicalComments}</p>
+                <p><strong>Comentarios:</strong> ${comments}</p>
                 <p><strong>Calificación:</strong> ${rating}/10</p>
                 <button class="share-button" onclick="shareOnTwitter('${title}')">Comparte con tus mutis</button>
                 <div class="disqus-comments" id="disqus_thread_${title.replace(/\s+/g, '_')}"></div>
